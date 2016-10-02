@@ -83,7 +83,7 @@ function printTotal($priceArray){
 			$totalArray = getTotal($RideData);
 			printTotal($totalArray, $RideData);
 		?>
-		<form action="index.php" method="GET">
+		<form action="page1.php" method="GET">
 			<label for="ride_type">Select a ride type: </label>
 			<select name="ride_type">
 				<?php
