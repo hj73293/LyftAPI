@@ -38,19 +38,31 @@ function printAllTotal($priceArray){
 	}
 }
 
+function printTip($total){
+	if( isset($_GET['tip']) ){
+		echo '<br>Estimated tip amount: $' . round($total * $_GET['tip']/100, 2) . '<br>';
+	}
+}
+
 function printTotal($priceArray){
 	if( isset($_GET['minutes']) ){
 		echo '<br>';
 		echo 'Estimated cost of a ';
 		echo $_GET['ride_type'] . ': $';
 		if( $_GET['ride_type'] == "Lyft Line" ){
-			echo $priceArray['lyft_line'];
+			$total = $priceArray['lyft_line'];
+			echo $total;
+			printTip($total);
 		}
 		elseif( $_GET['ride_type'] == "Lyft" ){
-                        echo $priceArray['lyft'];
+                        $total = $priceArray['lyft'];
+			echo $total;
+			printTip($total);
                 }
 		elseif( $_GET['ride_type'] == "Lyft Plus" ){
-			echo $priceArray['lyft_plus'];
+			$total = $priceArray['lyft_plus'];
+			echo $total;
+			printTip($total);
 		}
 	}
 }
@@ -83,7 +95,10 @@ function printTotal($priceArray){
 				?>
 			</select>
 			<br><label for="minutes">Estimate minute to destination: </label>
-			<input type="text" name="minutes" id="minutes" required>	
+			<input type="text" name="minutes" id="minutes" required>
+			<br><label for="tip">Enter tip(%)</label>
+	     		<input type="text" name="tip" id="tip">
+			<br><input type="submit" name="submit" id="submit">	
 		</form>
 		<?php
 			$dollarConv = 100;
