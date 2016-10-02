@@ -1,0 +1,58 @@
+#menu-bar{
+    padding: 1px 2px 1px;
+    background-color: dimgrey;
+    
+}
+
+body{
+    margin: 0;
+}
+
+.rideFinder h2{
+    display: block;
+    position: relative;
+    width: 400px;
+    height: 100px;
+    border: 1px solid #73AD21;
+    text-align: center;
+}
+#left-f{
+    margin: auto;
+}
+.rideFinder h2{
+    overflow: auto;
+}
+.form-inline{
+    display: inline-block;
+    position: absolute;
+    top: 5;
+    right: 200;
+    
+}
+
+.form-group > #inputEmail{
+    height:20px;
+    width: 30%;
+    display:inline-block;
+    padding-rigth: 
+}
+
+.form-group > #inputPassword{
+    display: inline-block;
+    left: -2;
+    height: 35;
+    padding: 0 1% 1% 0;
+}
+.form-group > #btn-login{
+    right: 2;
+}
+#menu{
+    padding: 5px 10px 15px;
+    background-color: darkgray;
+    
+}
+
+#footer{
+    padding: 2px;
+    background-color: white;
+}
