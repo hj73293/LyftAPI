@@ -22,29 +22,31 @@ body{
 .rideFinder h2{
     overflow: auto;
 }
+
+.img-rounded{
+    width: 50px;
+}
+
 .form-inline{
     display: inline-block;
     position: absolute;
     top: 5;
-    right: 200;
-    
+    right: 0;
+}
+
+.form-group{
+    display: inline-block;
 }
 
 .form-group > #inputEmail{
     height:20px;
-    width: 30%;
-    display:inline-block;
-    padding-rigth: 
+    display:inline-block; 
 }
 
 .form-group > #inputPassword{
     display: inline-block;
-    left: -2;
-    height: 35;
-    padding: 0 1% 1% 0;
 }
 .form-group > #btn-login{
-    right: 2;
 }
 #menu{
     padding: 5px 10px 15px;

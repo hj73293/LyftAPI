@@ -1,138 +1,112 @@
-<?php
-require_once("Lyft.php");
-
-function dollarConversion($convNum, $dollarConv){
-	$cents = (int)($convNum % $dollarConv);
-       	$dollar = (int)($convNum/$dollarConv);
-        if( $cents < 10 ) {
-        	$cents = '0' . $cents;
-        }
-	echo '$' . $dollar . '.' . $cents;
-}
-
-function getTotal($RideData){
-	if( isset($_GET['minutes']) ){
-		$totalPrices = array();
-		foreach($RideData->ride_types as $ride){
-			$total = 0;
-			foreach($ride->pricing_details as $names => $prices){					
-				if($names == 'base_charge'){
-                           	     $total = $total + ($prices/100);
-                                }
-                                elseif($names == 'cost_per_minute'){
-                	                $total = $total + (($prices/100) * $_GET['minutes']);
-                                }				
-			}
-			$totalPrices[$ride->ride_type] = $total;
-		}
-	return $totalPrices;
-	}
-}
-
-function printAllTotal($priceArray){
-	if( isset($_GET['minutes']) ){
-		echo '<br>';
-		foreach($priceArray as $name => $value){
-			echo 'Estimated cost of a ' . $name . ': ' . '$' . $value . '<br>';
-		}
-	}
-}
-
-function printTotal($priceArray){
-	if( isset($_GET['minutes']) ){
-		echo '<br>';
-		echo 'Estimated cost of a ';
-		echo $_GET['ride_type'] . ': $';
-		if( $_GET['ride_type'] == "Lyft Line" ){
-			echo $priceArray['lyft_line'];
-		}
-		elseif( $_GET['ride_type'] == "Lyft" ){
-                        echo $priceArray['lyft'];
-                }
-		elseif( $_GET['ride_type'] == "Lyft Plus" ){
-			echo $priceArray['lyft_plus'];
-		}
-	}
-}
-
-?>
-
-<!DOCTYPE html>
+<!Doctype HMTL>
 <html>
-	<head>
-		<title>Lyft</title>
-	</head>
-
-	<body>
-		<header>
-			Welcome to Lyft?
-		</headeri>
-		<?php
-			$totalArray = getTotal($RideData);
-			printTotal($totalArray, $RideData);
-		?>
-		<form action="index.php" method="GET">
-			<label for="ride_type">Select a ride type: </label>
-			<select name="ride_type">
-				<?php
-				foreach( $RideData->ride_types as $ride ){
-				?>
-					 <option value="<?php echo $ride->display_name; ?>"><?php echo $ride->display_name; ?></option>
-				<?php
-				}
-				?>
-			</select>
-			<br><label for="minutes">Estimate minute to destination: </label>
-			<input type="text" name="minutes" id="minutes" required>	
-		</form>
-		<?php
-			$dollarConv = 100;
-			foreach( $RideData->ride_types as $ride ){
-				echo '<h3>'. $ride->display_name . '</h3>';
-				echo '<img src='.$ride->image_url.'>';
-				echo '<p>Pricing details: <br>';
-				foreach( $ride->pricing_details as $names => $prices)
-				{
-					if($names == 'base_charge'){
-						echo 'Base Charge: ';
-						dollarConversion($prices, $dollarConv);
-						echo '<br>';
-					}
-					elseif($names == 'cost_per_mile'){
-						echo 'Cost per Mile: ';
-						dollarConversion($prices, $dollarConv);
-						echo '<br>';
-					}
-					elseif($names == 'cost_per_minute'){
-						echo 'Cost per Minute: ';
-						dollarConversion($prices, $dollarConv);
-						echo '<br>';
-					}
-					elseif($names == 'cost_minimum')
-					{
-						echo 'Minimum Cost: ';
-						dollarConversion($prices, $dollarConv);
-						echo '<br>';
-					}
-					elseif($names == 'trust_and_service')
-					{
-						echo 'Trust and Service Fee: ';
-						dollarConversion($prices, $dollarConv);
-						echo '<br>';
-					}
-					elseif($names == 'currency')
-					{
-						echo 'Currency: '. $prices;
-						echo '<br>';
-					}
-					elseif($names == 'cancel_penalty_amount')
-					{
-						echo 'Cancal Penalty Fee: ';
-						dollarConversion($prices, $dollarConv);
-						echo '<br>';
-					}	
-				}
-			}
-		?>
-	</body>
+    <head>
+        <meta charset=""utf-8"">
+        <title>LyftPrime | HomePage</title>
+        <meta name="description" content="An interactive LYFT Easy Ride Finder application.">
+        <link rel="stylesheet" href="main1.css">
+    </head>
+    
+    <body>
+        <div id = "menu-bar">
+            <div class = "rideFinder">
+                <!-- This div contains the name of the app-->
+                <h2 id = "left-h">Easy Ride | Finder</h2>
+            </div>
+            
+            <form class = "form-inline" action="page1.php" method="POST">
+                <div class = "form-group">
+                    <!-- This div contains the login form-->
+                    <label for= "InputEmail">Email</label>
+                    <input type = "email" class = "form-control" id = "inputEmail">
+                </div>
+                
+                <div class= "form-group">
+                    <label for= "InputPassword">Password</label>
+                    <input type = "password" class = "form-control" id = "inputPassword">
+                </div>
+                
+                <button type="submit" class="btn-login">Log In</button>
+            </form>
+            
+        </div>
+        
+        <div id = "menu">
+            
+            <div id = "menu-left">
+                <h3>
+                    Get a ride that you want<br>
+                    and faster on EasyRide.
+                </h3>
+                
+                <div>
+                    <img src="http://www.freelogovectors.net/wp-content/uploads/2016/02/lyft-logo.jpg" alt = "Get a ride in minutes." class= "img-rounded">
+                </div>
+            
+            </div>
+            
+            
+            <div id = "menu-rigth">
+                <div>
+                    <h1 id = "header-rigth">
+                        Sign Up.<br>
+                    </h1>
+                    <p>free app and always.<br></p>
+                </div>
+                
+                
+                
+                <form action="page1.php" method="POST">
+                    <form class= "form2-inline">
+                        <div class = "form2-group">
+                            <!-- This div contains the login form-->
+                            <input type = "text" class = "form2-control" id = "inputFirstName"     placeholder= "First Name">
+                        </div>
+                
+                        <div class= "form2-group">
+                            <input type = "text" class = "form2-control" id = "inputLastName"       placeholder= "Last Name">
+                        </div>
+                    </form>
+                
+                    <div class = "form2-group">
+                        <!-- This div contains the login form-->
+                        <input type = "email" class = "form2-control" id = "inputEmail"             placeholder= "Email">
+                    </div>
+                
+                    <div class= "form2-group">
+                        <input type = "email" class = "form2-control" id = "inputEmail"           placeholder="Re-enter Email">
+                    </div>
+                    
+                    <div class= "form2-group">
+                        <input type = "password" class = "form2-control" id = "inputPassword"        placeholder="New Password">
+                    </div>
+                    
+                    <div>
+                        <label class = "radio-inline">
+                            <input type = "radio" name = "male" id = "inline-radio1" value = "option1">Male
+                        </label>
+                    
+                        <label class = "radio-inline">
+                            <input type = "radio" name = "Female" id = "inline-radio2" value = "option2">Female
+                        </label>
+                    </div>
+                    
+                    <p>
+                        By clicking Sign Up, you agree to our Terms and that you have<br> 
+                        read our Data Policy, including our Cookie Use.<br>
+                    </p>
+                    
+                     <button type="submit" class="btn-signup">Sign Up</button>
+                    
+                </form>
+                
+            </div>
+            
+        </div>
+        
+        <div id = "footer">
+            <p>2016 LyftPrime, Inc. Terms and Privacy always matter!!</p>
+        </div>
+        
+    </body>
 </html>
